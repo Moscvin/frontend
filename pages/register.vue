@@ -18,7 +18,7 @@ const form = ref({
 });
 
 async function register(payload: RegisterPayload) {
-  const res = await axios.post("http://localhost:8080/api/register", payload);
+  const res = await axios.post("/register", payload);
   if (res.status === 201) {
     // Redirect to login page
     window.location.href = "/login";
