@@ -2,6 +2,7 @@
 import axios from "axios";
 definePageMeta({
   layout: "centered",
+  middleware: ["guest"],
 });
 
 interface RegisterPayload {
@@ -18,14 +19,13 @@ const form = ref({
 });
 
 async function register(payload: RegisterPayload) {
-  const res = await axios.post("/register", payload);
-  if (res.status === 201) {
-    // Redirect to login page
-    window.location.href = "/login";
-  } else {
-    // Handle error
-    console.error("Registration failed:", res.data);
+  await axios.post("/register", payload);
+  await axios.post("/login", payload);
+  {
+    email: payload.email;
+    password: payload.password;
   }
+  useRouter().push("/me");
 }
 </script>
 <template>

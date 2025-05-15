@@ -2,6 +2,7 @@
 import axios from "axios";
 definePageMeta({
   layout: "centered",
+  middleware: ["guest"],
 });
 interface LoginPayload {
   email: string;
@@ -15,7 +16,7 @@ async function login(payload: LoginPayload) {
   await axios.post("/login", payload);
   console.log("Login successful");
   // Redirect to home page
-  window.location.href = "/";
+  useRouter().push("/me");
 }
 </script>
 <template>
